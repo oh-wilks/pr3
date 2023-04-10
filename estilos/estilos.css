@@ -1,3 +1,86 @@
-body { 
-    background-color: black;
-}
+
+  .list-group {
+    width: 300px;
+  }
+  .navbar-brand {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
+    color: blue;
+  }
+  
+  .botones {
+    display: flex;
+    justify-content: end;
+    padding: 20px;
+  }
+
+  .dia {
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(184, 184, 184);
+    width: 90px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
+    margin-right: 10px;
+  }
+  
+  .semana {
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(184, 184, 184);
+    width: 90px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
+    margin-right: 10px;
+  }
+  
+  .mes {
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(184, 184, 184);
+    width: 90px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
+    margin-right: 10px;
+  }
+  
+  .año {
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(184, 184, 184);
+    width: 90px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
+  }
+  
+  .card {
+      /* Add shadows to create the "card" effect */
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+    
+    /* On mouse-over, add a deeper shadow */
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+    
+    /* Add some padding inside the card container */
+    .container {
+      padding: 2px 16px;
+    }
+    .row{
+      padding-top: 20px;
+      text-align: center;
+    }
+  
+  .btn-primary{
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    background-color: rgb(227, 227, 227);
+    padding: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
+    text-align: center;
+  
+  }

@@ -52,20 +52,26 @@
   <button class="mes" type="button">Mes</button>
   <button class="año" type="button">Año</button>
 </div>
-
-
-<ul class="list-group">
-  <button class="list-group-item list-group-item-primary">Dashboard</button>
-  <button class="list-group-item list-group-item-secondary">Button</button>
-  <button class="list-group-item list-group-item-success">Alert</button>
-  <button class="list-group-item list-group-item-danger">Card</button>
-  <button class="list-group-item list-group-item-warning">A simple warning list group item</button>
-</ul>
+<section class="row">
+<div class="col">
+  <ul class="list-group">
+    <button class="list-group-item list-group-item-primary">Dashboard</button>
+    <button class="list-group-item list-group-item-secondary">Button</button>
+    <button class="list-group-item list-group-item-success">Alert</button>
+    <button class="list-group-item list-group-item-danger">Card</button>
+    <button class="list-group-item list-group-item-warning">A simple warning list group item</button>
+  </ul>
+</div>
+<div class="col">
+  <canvas id="myChart"></canvas>
+</div>
+</section>
 <div class="row">
   <div class="col-sm-6 mb-3 mb-sm-0">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
+        <h5 class="card-title">BTCUSDT</h5>
+        <p id="btc-value">Loading...</p>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
         <a href="#" class="btn-primary">Go somewhere</a>
       </div>
@@ -110,5 +116,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="./javascript/javascript.js"></script>
-  </body>
+    <script src="./javascript/btc_CurrentValue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </html>

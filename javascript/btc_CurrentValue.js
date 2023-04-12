@@ -22,30 +22,36 @@ class BinanceAPI {
       return prices;
     }
   }
-  
+  class TickerManager {
+    constructor(tickerId) {
+        this.tickerElement = document.getElementById(tickerId);
+        this.api = new BinanceAPI();
+    }
+
+    async updateTicker(symbol) {
+        try {
+          const price = await this.api.getTickerPrice(symbol);
+          this.tickerElement.textContent = `$${price}`;
+        } catch (error) {
+          console.error(error);
+          this.tickerElement.textContent = "Error loading ticker value";
+        }
+      }
+  }
+
   class ChartManager {
     constructor(canvasId, tickerId) {
+      this.tickerElement = document.getElementById(tickerId);
       this.canvas = document.getElementById(canvasId);
       this.ctx = this.canvas.getContext("2d");
       this.chart = null;
-      this.tickerElement = document.getElementById(tickerId);
       this.api = new BinanceAPI();
-    }
-  
-    async updateTicker(symbol) {
-      try {
-        const price = await this.api.getTickerPrice(symbol);
-        this.tickerElement.textContent = `$${price}`;
-      } catch (error) {
-        console.error(error);
-        this.tickerElement.textContent = "Error loading ticker value";
-      }
     }
   
     async createChart(symbol, interval, limit) {
       const prices = await this.api.getKlines(symbol, interval, limit);
       if (this.chart) {
-        this.chart.destroy(); // eliminar grafico existente
+        this.chart.destroy(); // eliminar grafico
       }
       this.chart = new Chart(this.ctx, {
         type: "line",
@@ -80,4 +86,16 @@ class BinanceAPI {
   // Ejemplo con BTC
   const chartManager = new ChartManager("myChart", "btc-value");
   chartManager.createChart("BTCUSDT", "1d", 30);
+
+  const ticker_btcusdt = new TickerManager("btc-value")
+  ticker_btcusdt.updateTicker("BTCUSDT")
+
+
+  // Ejemplo con ETH
+
+  const ticker_ethusdt = new TickerManager("eth-value")
+  ticker_ethusdt.updateTicker("ETHUSDT")
+
+
+  
   

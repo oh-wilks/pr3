@@ -1,19 +1,4 @@
-@import "functions";
-@import "variables";
-@import "variables-dark";
 
-/* customize primary dark */
-
-
-[data-bs-theme="dark"] {
-  --bs-primary: #{$primary};
-  --bs-primary-bg-subtle: #{$primary};
-  --bs-primary-bg-subtle-dark: #{$primary};
-  
-  .btn-primary {
-    --bs-btn-bg: #{$primary};
-  }
-}
 .navbar-brand {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: small;
@@ -24,8 +9,6 @@
 
 .dia {
   border-radius: 10px;
-  background-color: rgb(255, 255, 255);
-  border-color: rgb(184, 184, 184);
   width: 90px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: small;
@@ -34,8 +17,6 @@
 
 .semana {
   border-radius: 10px;
-  background-color: rgb(255, 255, 255);
-  border-color: rgb(184, 184, 184);
   width: 90px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: small;
@@ -44,8 +25,6 @@
 
 .mes {
   border-radius: 10px;
-  background-color: rgb(255, 255, 255);
-  border-color: rgb(184, 184, 184);
   width: 90px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: small;
@@ -54,8 +33,6 @@
 
 .anio {
   border-radius: 10px;
-  background-color: rgb(255, 255, 255);
-  border-color: rgb(184, 184, 184);
   width: 90px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: small;

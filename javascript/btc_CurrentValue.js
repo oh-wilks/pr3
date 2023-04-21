@@ -45,8 +45,9 @@ class TickerManager {
       throw new Error("Invalid symbol");
     }
     try {
+      this.tickerElement.innerHTML = '<div class="spinner"></div>';
       const price = await this.api.getTickerPrice(symbol);
-      this.tickerElement.textContent = `$${price}`;
+      this.tickerElement.textContent = `$ ${price}`;
     } catch (error) {
       console.error(error);
       this.tickerElement.textContent = "Error loading ticker value";
@@ -73,6 +74,8 @@ class ChartManager {
     if (typeof symbol !== "string" || typeof interval !== "string" || typeof limit !== "number") {
       throw new Error("Invalid input parameters");
     }
+    // spinner
+    this.canvas.insertAdjacentHTML('afterend', '<div class="spinner"></div>');
     const prices = await this.api.getKlines(symbol, interval, limit);
     if (this.chart) {
       this.chart.destroy();
@@ -95,18 +98,19 @@ class ChartManager {
         scales: {
           y: {
             ticks: {
-              callback: (value) => "$" + value.toLocaleString(),
+              callback: (value) => "$ " + value.toLocaleString(),
             },
           },
         },
       },
     });
-  }
+    document.querySelector('.spinner').remove();
+  } 
 }
 
 // Ejemplo con BTC
 const chartManager = new ChartManager("myChart", "btc-value");
-chartManager.createChart("BTCUSDT", "1d", 30);
+chartManager.createChart("BTCUSDT", "1w", 52);
 
 const ticker_btcusdt = new TickerManager("btc-value");
 ticker_btcusdt.updateTicker("BTCUSDT");

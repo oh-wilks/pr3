@@ -3,3 +3,6 @@
 ## Dashboard para API
 
 Dashboard using API, and chart js library 
+
+Binance Readme
+https://www.binance.com/en/support/faq/how-to-download-historical-market-data-on-binance-5810ae42176b4770b880ce1f14932262

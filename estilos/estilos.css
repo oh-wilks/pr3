@@ -6,7 +6,6 @@
 }
 
 
-
 .dia {
   border-radius: 10px;
   width: 90px;
@@ -88,4 +87,10 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.footer{
+  text-align: center;
+  background-color: rgb(251, 251, 251);
+ 
 }

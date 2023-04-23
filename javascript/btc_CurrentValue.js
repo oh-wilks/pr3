@@ -6,7 +6,7 @@ class BinanceAPI {
   constructor() {
     this.apiEndpoint = API_ENDPOINT;
   }
-  
+
   async getTickerPrice(symbol) {
     const apiUrl = `${this.apiEndpoint}/ticker/price?symbol=${symbol}`;
     const response = await fetch(apiUrl);
@@ -19,13 +19,28 @@ class BinanceAPI {
     }
     return parseFloat(price).toFixed(2);
   }
-  
+
   async getKlines(symbol, interval, limit) {
     const apiUrl = `${this.apiEndpoint}/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
     try {
       const response = await fetch(apiUrl);
       const data = await response.json();
-      const prices = data.map(([timestamp, open, high, low, close, volume, closeTime, assetVolume, trades, buyBaseVolume, buyAssetVolume, ignored]) => parseFloat(close));
+      const prices = data.map(
+        ([
+          timestamp,
+          open,
+          high,
+          low,
+          close,
+          volume,
+          closeTime,
+          assetVolume,
+          trades,
+          buyBaseVolume,
+          buyAssetVolume,
+          ignored,
+        ]) => parseFloat(close)
+      );
       return prices;
     } catch (error) {
       console.error(error);
@@ -69,13 +84,17 @@ class ChartManager {
     this.chart = null;
     this.api = new BinanceAPI();
   }
-  
+
   async createChart(symbol, interval, limit) {
-    if (typeof symbol !== "string" || typeof interval !== "string" || typeof limit !== "number") {
+    if (
+      typeof symbol !== "string" ||
+      typeof interval !== "string" ||
+      typeof limit !== "number"
+    ) {
       throw new Error("Invalid input parameters");
     }
     // spinner
-    this.canvas.insertAdjacentHTML('afterend', '<div class="spinner"></div>');
+    this.canvas.insertAdjacentHTML("afterend", '<div class="spinner"></div>');
     const prices = await this.api.getKlines(symbol, interval, limit);
     if (this.chart) {
       this.chart.destroy();
@@ -104,8 +123,8 @@ class ChartManager {
         },
       },
     });
-    document.querySelector('.spinner').remove();
-  } 
+    document.querySelector(".spinner").remove();
+  }
 }
 
 // Ejemplo con BTC

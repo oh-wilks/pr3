@@ -44,7 +44,7 @@
                 Ingresa
               </a>
 <p>hola</p>
-<p>modificacion</p>
+<p>modi</p>
               <form class="d-flex mt-3" role="search">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn-success" type="submit">Buscar</button>
@@ -61,6 +61,7 @@
         <div id="spinner"></div>
         <p>Loading...</p>
       </div>
+      <!-- agregar otro contendor mostrando la moneda de la grafica   -->
 
       <div class="botones p-3 d-flex justify-content-end ">
         <button class="dia" type="button">Día</button>
@@ -73,16 +74,14 @@
     </div>
   </section>
   <section class="container">
-    <div class="row row-cols-2 row-cols-md-3 g-4">
+    <div class="row row-cols-2 row-cols-md-4 g-4">
       <div class="col">
         <div class="card h-100">
 
           <div class="card-body">
-            <img src="./assets/icons/btc.svg" alt="" style="width: 10%;">
+            <img src="./assets/icons/btc.svg" alt="" style="width: 25px;">
             <h5 class="card-title">BTCUSDT</h5>
-            <p id="btc-value">Loading...</p>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn-primary" id="btnAct" onclick="window.location.reload()">Actualizar BTCUSDT</a>
+            <h3 id="btc-value">Loading...</h3>            
           </div>
 
         </div>
@@ -92,35 +91,33 @@
         <div class="card h-100">
           <div class="card-body">
             <div class="container-fluid">
-              <img src="./assets/icons/eth.svg" alt="" style="width: 10%;">
+              <img src="./assets/icons/eth.svg" alt="" style="width: 25px;">
+            </div>
+            <h5 class="card-title">ETHUSDT</h5>
+            <h3 id="eth-value">Loading...</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="container-fluid">
+              <img src="./assets/icons/eth.svg" alt="" style="width: 25px;">
             </div>
             <h5 class="card-title">ETHUSDT</h5>
             <p id="eth-value">Loading...</p>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn-primary" id="btnAct" onclick="window.location.reload()">Actualizar ETHUSDT</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn-primary">Go somewhere</a>
-
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card h-100">
-
           <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn-primary">Go somewhere</a>
-
+            <div class="container-fluid">
+              <img src="./assets/icons/eth.svg" alt="" style="width:25px;">
+            </div>
+            <h5 class="card-title">ETHUSDT</h5>
+            <p id="eth-value">Loading...</p>
           </div>
         </div>
       </div>
@@ -139,7 +136,7 @@
   <script src="./javascript/btc_CurrentValue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
-<footer class="footer">
+<footer id="footer">
 
   <p>
     Base de Datos Usada: <u><a

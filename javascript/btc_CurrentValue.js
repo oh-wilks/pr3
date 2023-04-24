@@ -108,8 +108,10 @@ class ChartManager {
             label: symbol,
             data: prices,
             fill: false,
-            borderColor: "#F0000",
+            borderColor: "#808080",
             tension: 0.1,
+            
+
           },
         ],
       },
@@ -117,8 +119,11 @@ class ChartManager {
         scales: {
           y: {
             ticks: {
-              callback: (value) => "$ " + value.toLocaleString(),
+              callback: (value) => "$ " + value.toLocaleString()
+
             },
+            grid:{
+              color:"#808080"},
           },
         },
       },
@@ -129,7 +134,7 @@ class ChartManager {
 
 // Ejemplo con BTC
 const chartManager = new ChartManager("myChart", "btc-value");
-chartManager.createChart("BTCUSDT", "1w", 52);
+chartManager.createChart("BTCUSDT", "1d", 32);
 
 const ticker_btcusdt = new TickerManager("btc-value");
 ticker_btcusdt.updateTicker("BTCUSDT");

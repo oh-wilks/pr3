@@ -1,4 +1,8 @@
 
+body{
+
+
+}
 .navbar-brand {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: small;
@@ -67,14 +71,8 @@
   text-align: center;
 
 }
-.container .col .botones .dia,
-.container .col .botones .semana,
-.container .col .botones .mes,
-.container .col .botones .anio{
-  align-items: center;
-  text-align: center;
-  
-}
+
+
 .spinner {
   border: 2px solid #f3f3f3;
   border-top: 2px solid #3498db;
@@ -89,8 +87,7 @@
   100% { transform: rotate(360deg); }
 }
 
-.footer{
+footer{
   text-align: center;
-  background-color: rgb(251, 251, 251);
- 
+  
 }

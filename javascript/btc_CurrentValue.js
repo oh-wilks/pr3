@@ -17,7 +17,7 @@ class BinanceAPI {
     if (!price) {
       throw new Error(ERROR_TICKER_PRICE);
     }
-    return parseFloat(price).toFixed(2);
+    return parseFloat(price).toLocaleString(undefined, { maximumFractionDigits: 2 });
   }
 
   async getKlines(symbol, interval, limit) {
@@ -159,3 +159,24 @@ ticker_btcusdt.updateTicker("BTCUSDT");
 // Ejemplo con ETH
 const ticker_ethusdt = new TickerManager("eth-value");
 ticker_ethusdt.updateTicker("ETHUSDT");
+
+
+// dropdown
+async function populateTickerSelect() {
+  const apiUrl = `${API_ENDPOINT}/exchangeInfo`;
+  const response = await fetch(apiUrl);
+  const { symbols } = await response.json();
+
+  const tickerSelect = document.getElementById("ticker-select");
+  symbols.forEach(symbol => {
+    const option = document.createElement("option");
+    option.value = symbol.symbol;
+    option.textContent = symbol.symbol;
+    tickerSelect.appendChild(option);
+  });
+}
+
+
+window.addEventListener("load", () => {
+  populateTickerSelect();
+});

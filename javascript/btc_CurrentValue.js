@@ -39,7 +39,10 @@ class BinanceAPI {
           buyBaseVolume,
           buyAssetVolume,
           ignored,
-        ]) => parseFloat(close)
+        ]) => ({
+          date: timestamp,
+          price: parseFloat(close),
+        })
       );
       return prices;
     } catch (error) {
@@ -95,14 +98,24 @@ class ChartManager {
     }
     // spinner
     this.canvas.insertAdjacentHTML("afterend", '<div class="spinner"></div>');
-    const prices = await this.api.getKlines(symbol, interval, limit);
+    let prices = await this.api.getKlines(symbol, interval, limit);
+    prices = prices.map(item => item.price);
+
+    let date = await this.api.getKlines(symbol, interval, limit);
+    date = date.map(item => item.date);
+
+     date = date.map((unixTimestamp) => {
+      const date = new Date(unixTimestamp);
+      return date.toISOString().slice(0, 10);
+    });
+    
     if (this.chart) {
       this.chart.destroy();
     }
     this.chart = new Chart(this.ctx, {
       type: "line",
       data: {
-        labels: Array.from(Array(prices.length).keys()),
+        labels: date,
         datasets: [
           {
             label: symbol,
@@ -117,13 +130,17 @@ class ChartManager {
       },
       options: {
         scales: {
+          x: {
+            grid:{
+              color:"#ede8e8"}
+          },
           y: {
             ticks: {
               callback: (value) => "$ " + value.toLocaleString()
 
             },
             grid:{
-              color:"#808080"},
+              color:"#ede8e8"},
           },
         },
       },

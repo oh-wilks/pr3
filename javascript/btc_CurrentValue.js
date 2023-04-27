@@ -41,6 +41,7 @@ class BinanceAPI {
           ignored,
         ]) => parseFloat(close)
       );
+      console.log(data);
       return prices;
     } catch (error) {
       console.error(error);

@@ -138,3 +138,5 @@ ticker_btcusdt.updateTicker("BTCUSDT");
 // Ejemplo con ETH
 const ticker_ethusdt = new TickerManager("eth-value");
 ticker_ethusdt.updateTicker("ETHUSDT");
+
+export default BinanceAPI;

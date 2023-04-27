@@ -1,87 +1,58 @@
 const API_ENDPOINT = "https://api.binance.com/api/v3";
 const ERROR_TICKER_PRICE = "Failed to get ticker price";
 const ERROR_KLINES = "Failed to get klines";
-// Seleccionar los elementos del DOM
-const diaBtn = document.querySelector('.dia');
-const semanaBtn = document.querySelector('.semana');
-const mesBtn = document.querySelector('.mes');
-const anioBtn = document.querySelector('.anio');
-const canvas = document.getElementById('myChart');
-const dateInterval = document.getElementById("dateInterval")
-let myChart = null
 
-function clearActiveButtons() {
-  diaBtn.classList.remove('active');
-  semanaBtn.classList.remove('active');
-  mesBtn.classList.remove('active');
-  anioBtn.classList.remove('active');
-}
 class BinanceAPI {
   constructor() {
-    this.apiEndpoint = API_ENDPOINT;
+    this.apiEndpoint = API_ENDPOINT; // URL base de la API de Binance
   }
-
+  
   async getTickerPrice(symbol) {
-    const apiUrl = `${this.apiEndpoint}/ticker/price?symbol=${symbol}`;
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(ERROR_TICKER_PRICE);
+    const apiUrl = `${this.apiEndpoint}/ticker/price?symbol=${symbol}`; // URL para obtener el precio del ticker
+    const response = await fetch(apiUrl); // Obtener la respuesta de la API
+    if (!response.ok) { // Si la respuesta no es "ok" (200)
+      throw new Error(ERROR_TICKER_PRICE); // Lanzar una excepción con el mensaje de error correspondiente
     }
-    const { price } = await response.json();
-    if (!price) {
-      throw new Error(ERROR_TICKER_PRICE);
+    const { price } = await response.json(); // Obtener el precio desde la respuesta de la API
+    if (!price) { // Si no se puede obtener el precio
+      throw new Error(ERROR_TICKER_PRICE); // Lanzar una excepción con el mensaje de error correspondiente
     }
-    return parseFloat(price).toLocaleString(undefined, { maximumFractionDigits: 2 });
+    return parseFloat(price).toFixed(2);
   }
-
+  
   async getKlines(symbol, interval, limit) {
-    const apiUrl = `${this.apiEndpoint}/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
+    const apiUrl = `${this.apiEndpoint}/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`; // URL para obtener los datos de las klines
     try {
       const response = await fetch(apiUrl);
       const data = await response.json();
-      const prices = data.map(
-        ([
-          timestamp,
-          open,
-          high,
-          low,
-          close,
-          volume,
-          closeTime,
-          assetVolume,
-          trades,
-          buyBaseVolume,
-          buyAssetVolume,
-          ignored,
-        ]) => ({
-          date: timestamp,
-          price: parseFloat(close),
-        })
-      );
+      const prices = data.map(([timestamp, open, high, low, close, volume, closeTime, assetVolume, trades, buyBaseVolume, buyAssetVolume, ignored]) => parseFloat(close));
       return prices;
     } catch (error) {
       console.error(error);
       throw new Error(ERROR_KLINES);
     }
   }
+
 }
 
 
+// Clase TickerManager para manejar el ticker en la página web
 class TickerManager {
   constructor(tickerId) {
-    this.tickerElement = document.getElementById(tickerId);
-    this.api = new BinanceAPI();
+    this.tickerElement = document.getElementById(tickerId); // Elemento del ticker en la página web
+    this.api = new BinanceAPI(); // Instancia de la clase BinanceAPI para interactuar con la API de Binance
   }
 
+  // Método para actualizar el valor del ticker
   async updateTicker(symbol) {
-    if (typeof symbol !== "string" || symbol.length === 0) {
-      throw new Error("Invalid symbol");
+    if (typeof symbol !== "string" || symbol.length === 0) { // Verificar si el símbolo del ticker es válido
+      throw new Error("Invalid symbol"); // Lanzar una excepción si el símbolo del ticker no es válido
     }
     try {
-      this.tickerElement.innerHTML = '<div class="spinner"></div>';
       const price = await this.api.getTickerPrice(symbol);
-      this.tickerElement.textContent = `$ ${price}`;
+      this.tickerElement.textContent = `$${price}`;
     } catch (error) {
+      // Si ocurre algún error durante la obtención del precio, se muestra un mensaje de error en el ticker
       console.error(error);
       this.tickerElement.textContent = "Error loading ticker value";
     }
@@ -111,56 +82,34 @@ class ChartManager {
     ) {
       throw new Error("Invalid input parameters");
     }
-    // spinner
-    this.canvas.insertAdjacentHTML("afterend", '<div class="spinner"></div>');
-    let prices = await this.api.getKlines(symbol, interval, limit);
-    prices = prices.map(item => item.price);
-
-    let date = await this.api.getKlines(symbol, interval, limit);
-    date = date.map(item => item.date);
-
-     date = date.map((unixTimestamp) => {
-      const date = new Date(unixTimestamp);
-      return date.toISOString().slice(0, 10);
-    });
-    
+    const prices = await this.api.getKlines(symbol, interval, limit);
     if (this.chart) {
       this.chart.destroy();
     }
     this.chart = new Chart(this.ctx, {
       type: "line",
       data: {
-        labels: date,
+        labels: Array.from(Array(prices.length).keys()),
         datasets: [
           {
             label: symbol,
             data: prices,
             fill: false,
-            borderColor: "#808080",
+            borderColor: "#F0000",
             tension: 0.1,
-            
-
           },
         ],
       },
       options: {
         scales: {
-          x: {
-            grid:{
-              color:"#ede8e8"}
-          },
           y: {
             ticks: {
-              callback: (value) => "$ " + value.toLocaleString()
-
+              callback: (value) => "$" + value.toLocaleString(),
             },
-            grid:{
-              color:"#ede8e8"},
           },
         },
       },
     });
-    document.querySelector(".spinner").remove();
   }
 }
 

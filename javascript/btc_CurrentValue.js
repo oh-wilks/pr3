@@ -1,7 +1,21 @@
 const API_ENDPOINT = "https://api.binance.com/api/v3";
 const ERROR_TICKER_PRICE = "Failed to get ticker price";
 const ERROR_KLINES = "Failed to get klines";
+// Seleccionar los elementos del DOM
+const diaBtn = document.querySelector('.dia');
+const semanaBtn = document.querySelector('.semana');
+const mesBtn = document.querySelector('.mes');
+const anioBtn = document.querySelector('.anio');
+const canvas = document.getElementById('myChart');
+const dateInterval = document.getElementById("dateInterval")
+let myChart = null
 
+function clearActiveButtons() {
+  diaBtn.classList.remove('active');
+  semanaBtn.classList.remove('active');
+  mesBtn.classList.remove('active');
+  anioBtn.classList.remove('active');
+}
 class BinanceAPI {
   constructor() {
     this.apiEndpoint = API_ENDPOINT;
@@ -51,6 +65,7 @@ class BinanceAPI {
     }
   }
 }
+
 
 class TickerManager {
   constructor(tickerId) {
@@ -149,6 +164,7 @@ class ChartManager {
   }
 }
 
+
 // dropdown
 async function populateTickerSelect(callback) {
   const apiUrl = `${API_ENDPOINT}/exchangeInfo`;
@@ -177,13 +193,24 @@ async function populateTickerSelect(callback) {
   callback(defaultValue);
 }
 
+
+
+
+
 // inicializacion de grafico, 
 window.addEventListener("load", async () => {
   const chartManager = new ChartManager("myChart", "btc-value");
   populateTickerSelect(selectedValue => {
-    chartManager.createChart(selectedValue, "1d", 32);
+    chartManager.createChart(selectedValue, "1d", 15);
   });
 });
+
+dateInterval.addEventListener("change", function(event){
+  interval = event.target.value
+  createChart.destroy()
+  getKlines()
+
+})
 
 const ticker_btcusdt = new TickerManager("btc-value");
 ticker_btcusdt.updateTicker("BTCUSDT");

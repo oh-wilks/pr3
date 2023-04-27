@@ -60,19 +60,16 @@
         <p>Loading...</p>
       </div>
       <!-- agregar otro contendor mostrando la moneda de la grafica   -->
-
-      <div id="dateInterval" class="botones p-3 d-flex justify-content-end ">
-        <button class="dia" type="button" value="1d">1 Día</button>
-        <button class="semana" type="button" value="3d">3 Dias</button>
-        <button class="mes" type="button" value="1w">1 Semana</button>
-        <button class="anio" type="button" value="1mo">1 Mes</button>
-        <!-- <select name="fechas" id="dateInterval">
-          <option value="" disabled selected>Selecciona una opcion</option>
-          <option value="2000-01-01">Año 2000</option>
-          <option value="2010-01-01">Año 2010</option>
-          <option value="2020-01-01">Año 2020</option>
-      </select> -->
-      </div>
+    <div id="ticker">
+      <select id="dateInterval" class="botones d-flex justify-content-end ">
+            <option value="" disabled selected>Selecciona una opcion</option>
+            <option class="dia" value="1d">1 Día</option>
+            <option class="semana" value="3d">3 Dias</option>
+            <option class="mes"  value="1w">1 Semana</option>
+            <option class="anio"  value="1mo">1 Mes</option>
+          </select>
+    </div>
+      
       <canvas id="myChart"></canvas>
       <select class="dropdown" id="ticker-select"></select>
 

@@ -17,7 +17,7 @@ class BinanceAPI {
     if (!price) {
       throw new Error(ERROR_TICKER_PRICE);
     }
-    return parseFloat(price).toFixed(2);
+    return parseFloat(price).toLocaleString(undefined, { maximumFractionDigits: 2 });
   }
 
   async getKlines(symbol, interval, limit) {
@@ -39,7 +39,10 @@ class BinanceAPI {
           buyBaseVolume,
           buyAssetVolume,
           ignored,
-        ]) => parseFloat(close)
+        ]) => ({
+          date: timestamp,
+          price: parseFloat(close),
+        })
       );
       console.log(data);
       return prices;
@@ -96,30 +99,49 @@ class ChartManager {
     }
     // spinner
     this.canvas.insertAdjacentHTML("afterend", '<div class="spinner"></div>');
-    const prices = await this.api.getKlines(symbol, interval, limit);
+    let prices = await this.api.getKlines(symbol, interval, limit);
+    prices = prices.map(item => item.price);
+
+    let date = await this.api.getKlines(symbol, interval, limit);
+    date = date.map(item => item.date);
+
+     date = date.map((unixTimestamp) => {
+      const date = new Date(unixTimestamp);
+      return date.toISOString().slice(0, 10);
+    });
+    
     if (this.chart) {
       this.chart.destroy();
     }
     this.chart = new Chart(this.ctx, {
       type: "line",
       data: {
-        labels: Array.from(Array(prices.length).keys()),
+        labels: date,
         datasets: [
           {
             label: symbol,
             data: prices,
             fill: false,
-            borderColor: "#F0000",
+            borderColor: "#808080",
             tension: 0.1,
+            
+
           },
         ],
       },
       options: {
         scales: {
+          x: {
+            grid:{
+              color:"#ede8e8"}
+          },
           y: {
             ticks: {
-              callback: (value) => "$ " + value.toLocaleString(),
+              callback: (value) => "$ " + value.toLocaleString()
+
             },
+            grid:{
+              color:"#ede8e8"},
           },
         },
       },
@@ -128,9 +150,41 @@ class ChartManager {
   }
 }
 
-// Ejemplo con BTC
-const chartManager = new ChartManager("myChart", "btc-value");
-chartManager.createChart("BTCUSDT", "1w", 52);
+// dropdown
+async function populateTickerSelect(callback) {
+  const apiUrl = `${API_ENDPOINT}/exchangeInfo`;
+  const response = await fetch(apiUrl);
+  const { symbols } = await response.json();
+
+  const tickerSelect = document.getElementById("ticker-select");
+
+  // ordenar alfabeticamente
+  symbols.sort((a, b) => a.symbol.localeCompare(b.symbol));
+
+  // agregar tickers al dropdown
+  symbols.forEach(symbol => {
+    const option = document.createElement("option");
+    option.value = symbol.symbol;
+    option.textContent = symbol.symbol;
+    tickerSelect.appendChild(option);
+  });
+
+  tickerSelect.addEventListener("change", () => {
+    const selectedValue = tickerSelect.value;
+    callback(selectedValue);
+  });
+  // valor default
+  const defaultValue = "BTCUSDT";
+  callback(defaultValue);
+}
+
+// inicializacion de grafico, 
+window.addEventListener("load", async () => {
+  const chartManager = new ChartManager("myChart", "btc-value");
+  populateTickerSelect(selectedValue => {
+    chartManager.createChart(selectedValue, "1d", 32);
+  });
+});
 
 const ticker_btcusdt = new TickerManager("btc-value");
 ticker_btcusdt.updateTicker("BTCUSDT");

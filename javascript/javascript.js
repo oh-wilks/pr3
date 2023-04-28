@@ -22,3 +22,5 @@ const cambiarTema = () => {
     temaOscuro();
   }
 };
+
+export default cambiarTema;

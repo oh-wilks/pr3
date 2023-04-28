@@ -1,7 +1,7 @@
 const API_ENDPOINT = "https://api.binance.com/api/v3";
 const ERROR_TICKER_PRICE = "Failed to get ticker price";
 const ERROR_KLINES = "Failed to get klines";
-const dateInterval = document.getElementById("dateInterval");
+
 let chart = null;
 
 class BinanceAPI {
@@ -76,7 +76,7 @@ class TickerManager {
   }
 }
 
-class ChartManager {
+export class ChartManager {
   constructor(canvasId, tickerId) {
     this.tickerElement = document.getElementById(tickerId);
     if (!this.tickerElement) {
@@ -152,43 +152,6 @@ class ChartManager {
 }
 
 
-dateInterval.addEventListener("change", function(event) {
-  
-  const tickerSelect = document.getElementById("ticker-select");
-  selectedValue = tickerSelect.value;
-
-  interval = event.target.value;
-  chart.destroy();
-  
-  const chartManager = new ChartManager("myChart", "ticker-select")
-  switch (interval) {
-    case "1h":
-      chartManager.createChart(selectedValue, interval, 24);
-      
-      
-      break;
-    case "3d":
-      chartManager.createChart(selectedValue, "1h", 72);
-        
-        
-      break;
-    case "1w":
-      chartManager.createChart(selectedValue, "1d", 7);
-        
-        
-      break;  
-    case "1mo":
-      chartManager.createChart(selectedValue, "1d", 30);
-        
-        
-      break;
-    
-  }
-
-  
-  
-})
-
 
 // dropdown
 async function populateTickerSelect(callback) {
@@ -235,4 +198,4 @@ ticker_btcusdt.updateTicker("BTCUSDT");
 const ticker_ethusdt = new TickerManager("eth-value");
 ticker_ethusdt.updateTicker("ETHUSDT");
 
-export default BinanceAPI;
+export default {BinanceAPI, ChartManager};

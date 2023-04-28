@@ -1,11 +1,8 @@
 const API_ENDPOINT = "https://api.binance.com/api/v3";
 const ERROR_TICKER_PRICE = "Failed to get ticker price";
 const ERROR_KLINES = "Failed to get klines";
-
-
 const dateInterval = document.getElementById("dateInterval");
 let chart = null;
-
 
 class BinanceAPI {
   
@@ -48,6 +45,7 @@ class BinanceAPI {
           price: parseFloat(close),
         })
       );
+      console.log(data);
       return prices;
     } catch (error) {
       console.error(error);
@@ -89,7 +87,6 @@ class ChartManager {
       throw new Error(`Invalid canvas ID: ${canvasId}`);
     }
     this.ctx = this.canvas.getContext("2d");
-    
     this.api = new BinanceAPI();
   }
 
@@ -237,3 +234,5 @@ ticker_btcusdt.updateTicker("BTCUSDT");
 // Ejemplo con ETH
 const ticker_ethusdt = new TickerManager("eth-value");
 ticker_ethusdt.updateTicker("ETHUSDT");
+
+export default BinanceAPI;

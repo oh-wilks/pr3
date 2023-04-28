@@ -2,13 +2,16 @@ const API_ENDPOINT = "https://api.binance.com/api/v3";
 const ERROR_TICKER_PRICE = "Failed to get ticker price";
 const ERROR_KLINES = "Failed to get klines";
 
+
+const dateInterval = document.getElementById("dateInterval");
+let chart = null;
+
+
 class BinanceAPI {
-  constructor() {
-    this.apiEndpoint = API_ENDPOINT;
-  }
+  
 
   async getTickerPrice(symbol) {
-    const apiUrl = `${this.apiEndpoint}/ticker/price?symbol=${symbol}`;
+    const apiUrl = `${API_ENDPOINT}/ticker/price?symbol=${symbol}`;
     const response = await fetch(apiUrl);
     if (!response.ok) {
       throw new Error(ERROR_TICKER_PRICE);
@@ -21,7 +24,8 @@ class BinanceAPI {
   }
 
   async getKlines(symbol, interval, limit) {
-    const apiUrl = `${this.apiEndpoint}/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
+    const apiUrl = `${API_ENDPOINT}/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
+
     try {
       const response = await fetch(apiUrl);
       const data = await response.json();
@@ -52,6 +56,7 @@ class BinanceAPI {
   }
 }
 
+
 class TickerManager {
   constructor(tickerId) {
     this.tickerElement = document.getElementById(tickerId);
@@ -79,12 +84,12 @@ class ChartManager {
     if (!this.tickerElement) {
       throw new Error(`Invalid ticker ID: ${tickerId}`);
     }
-    this.canvas = document.getElementById(canvasId);
+    this.canvas = this.canvas = document.getElementById("myChart");
     if (!this.canvas) {
       throw new Error(`Invalid canvas ID: ${canvasId}`);
     }
     this.ctx = this.canvas.getContext("2d");
-    this.chart = null;
+    
     this.api = new BinanceAPI();
   }
 
@@ -109,10 +114,10 @@ class ChartManager {
       return date.toISOString().slice(0, 10);
     });
     
-    if (this.chart) {
-      this.chart.destroy();
+    if (chart) {
+      chart.destroy();
     }
-    this.chart = new Chart(this.ctx, {
+    chart = new Chart(this.ctx, {
       type: "line",
       data: {
         labels: date,
@@ -149,6 +154,45 @@ class ChartManager {
   }
 }
 
+
+dateInterval.addEventListener("change", function(event) {
+  
+  const tickerSelect = document.getElementById("ticker-select");
+  selectedValue = tickerSelect.value;
+
+  interval = event.target.value;
+  chart.destroy();
+  
+  const chartManager = new ChartManager("myChart", "ticker-select")
+  switch (interval) {
+    case "1h":
+      chartManager.createChart(selectedValue, interval, 24);
+      
+      
+      break;
+    case "3d":
+      chartManager.createChart(selectedValue, "1h", 72);
+        
+        
+      break;
+    case "1w":
+      chartManager.createChart(selectedValue, "1d", 7);
+        
+        
+      break;  
+    case "1mo":
+      chartManager.createChart(selectedValue, "1d", 30);
+        
+        
+      break;
+    
+  }
+
+  
+  
+})
+
+
 // dropdown
 async function populateTickerSelect(callback) {
   const apiUrl = `${API_ENDPOINT}/exchangeInfo`;
@@ -177,13 +221,15 @@ async function populateTickerSelect(callback) {
   callback(defaultValue);
 }
 
+
 // inicializacion de grafico, 
 window.addEventListener("load", async () => {
   const chartManager = new ChartManager("myChart", "btc-value");
   populateTickerSelect(selectedValue => {
-    chartManager.createChart(selectedValue, "1d", 32);
+    chartManager.createChart(selectedValue, "1d", 30);
   });
 });
+
 
 const ticker_btcusdt = new TickerManager("btc-value");
 ticker_btcusdt.updateTicker("BTCUSDT");

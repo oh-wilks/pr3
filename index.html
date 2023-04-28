@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 </head>
 
-<link rel="shortcut icon" href="./estilos/img/business.ico" />
+<link rel="shortcut icon" href="./assets/icons/img/business.ico" />
 
 <body>
 
@@ -60,13 +60,16 @@
         <p>Loading...</p>
       </div>
       <!-- agregar otro contendor mostrando la moneda de la grafica   -->
-
-      <div class="botones p-3 d-flex justify-content-end ">
-        <button class="dia" type="button">Día</button>
-        <button class="semana" type="button">Semana</button>
-        <button class="mes" type="button">Mes</button>
-        <button class="anio" type="button">Año</button>
-      </div>
+    <div id="ticker">
+      <select id="dateInterval" class="botones d-flex justify-content-end ">
+            <option value="" disabled selected>Selecciona una opcion</option>
+            <option class="dia" value="1h">1 Día (24 hrs)</option>
+            <option class="semana" value="3d">3 dias (72 hrs)</option>
+            <option class="mes"  value="1w">1 Semana (7 dias)</option>
+            <option class="anio"  value="1mo">1 Mes (30 dias)</option>
+          </select>
+    </div>
+      
       <canvas id="myChart"></canvas>
       <select class="dropdown" id="ticker-select"></select>
 
@@ -128,14 +131,6 @@
 
 
 
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-    crossorigin="anonymous"></script>
-  <script src="./javascript/javascript.js"></script>
-  <script src="./javascript/btc_CurrentValue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</body>
 <footer id="footer">
 
   <p>
@@ -149,5 +144,13 @@
   </p>
 
 </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="./javascript/javascript.js"></script>
+  <script src="./javascript/btc_CurrentValue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
 
 </html>

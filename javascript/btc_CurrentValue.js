@@ -1,6 +1,8 @@
 const API_ENDPOINT = "https://api.binance.com/api/v3";
 const ERROR_TICKER_PRICE = "Failed to get ticker price";
 const ERROR_KLINES = "Failed to get klines";
+const dateInterval = document.getElementById("dateInterval");
+let chart = null;
 
 class BinanceAPI {
   constructor() {
@@ -85,7 +87,6 @@ class ChartManager {
       throw new Error(`Invalid canvas ID: ${canvasId}`);
     }
     this.ctx = this.canvas.getContext("2d");
-    this.chart = null;
     this.api = new BinanceAPI();
   }
 
@@ -110,10 +111,10 @@ class ChartManager {
       return date.toISOString().slice(0, 10);
     });
     
-    if (this.chart) {
-      this.chart.destroy();
+    if (chart) {
+      chart.destroy();
     }
-    this.chart = new Chart(this.ctx, {
+    chart = new Chart(this.ctx, {
       type: "line",
       data: {
         labels: date,
@@ -177,6 +178,35 @@ async function populateTickerSelect(callback) {
   const defaultValue = "BTCUSDT";
   callback(defaultValue);
 }
+//creacion de tiempo de graficas
+
+dateInterval.addEventListener("change", function(event) {
+  
+  const tickerSelect = document.getElementById("ticker-select");
+  selectedValue = tickerSelect.value;
+
+  interval = event.target.value;
+  chart.destroy();
+  
+  const chartManager = new ChartManager("myChart", "ticker-select")
+  switch (interval) {
+    case "1h":
+      chartManager.createChart(selectedValue, interval, 24);
+      
+      
+      break;
+      case "1d":
+        chartManager.createChart(selectedValue, interval, 72);
+        
+        
+        break;
+    default:
+      break;
+  }
+  chartManager.createChart(selectedValue, interval, 30);
+  
+  
+})
 
 // inicializacion de grafico, 
 window.addEventListener("load", async () => {

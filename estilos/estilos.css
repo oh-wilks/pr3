@@ -91,3 +91,7 @@ footer{
   text-align: center;
   
 }
+
+.dropdown {
+  width: 200px;
+}

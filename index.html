@@ -54,24 +54,23 @@
       </div>
     </div>
   </nav>
-  <section class="container">
+  <br>
+  <section class="container-fluid">
     <div class="col">
       <div id="loader" style="display: none;">
         <div id="spinner"></div>
         <p>Loading...</p>
       </div>
       <!-- agregar otro contendor mostrando la moneda de la grafica   -->
-      <div id="ticker">
-        <select id="dateInterval" class="botones d-flex justify-content-end ">
-              <option value="" disabled selected>Selecciona una opcion</option>
-              <option class="dia" value="1h" >1 Día (24 hrs)</option>
-              <option class="semana" value="1d">3 Dias (72 hrs)</option>
-              <option class="mes"  value="1w">1 Semana (7 dias)</option>
-              <option class="anio"  value="1mo">1 Mes (30 dias)</option>
-            </select>
+      <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+        <button id="btn-1y" type="button" class="btn btn-outline-secondary">1 Año</button>
+        <button id="btn-7d" type="button" class="btn btn-outline-secondary">7 Días</button>
+        <button id="btn-30d" type="button" class="btn btn-outline-secondary">1 Mes</button>
       </div>
       <canvas id="myChart"></canvas>
-      <select class="dropdown" id="ticker-select" loading="lazy"></select>
+      <div class="dropdown">
+        <select class="form-select" id="ticker-select" loading="lazy"></select>
+      </div>
 
 
     </div>

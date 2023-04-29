@@ -21,7 +21,7 @@ En la carpeta `javascript` se encuentran los archivos `btc_CurrentValue.js` y `j
 
 - A continuación, se añade un `event listener` para el evento `"load"` en la ventana (es decir, cuando se carga la página) que llama a la función `BinanceAPI` que fue importada anteriormente.
 
--Finalmente, se añade otro event listener para el evento `"click"` en el botón `btnTemas` que llama a la función `cambiarTema` que también fue importada anteriormente. Esta función probablemente cambia el tema de la página (por ejemplo, de claro a oscuro o viceversa).
+- Finalmente, se añade otro event listener para el evento `"click"` en el botón `btnTemas` que llama a la función `cambiarTema` que también fue importada anteriormente. Esta función probablemente cambia el tema de la página (por ejemplo, de claro a oscuro o viceversa).
 
 ## Clases
 

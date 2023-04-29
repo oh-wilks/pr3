@@ -1,4 +1,4 @@
-const API_ENDPOINT = "https://api.binance.com/api/v3";
+export const API_ENDPOINT = "https://api.binance.com/api/v3";
 const ERROR_TICKER_PRICE = "Failed to get ticker price";
 const ERROR_KLINES = "Failed to get klines";
 
@@ -150,46 +150,32 @@ export class ChartManager {
     document.querySelector(".spinner").remove();
   }
 }
+import { populateTickerSelect } from "./tickerDropDown.js";
+import { intervals } from "./dateInterval.js";
 
+// inicializacion de grafico,
 
-
-// dropdown
-async function populateTickerSelect(callback) {
-  const apiUrl = `${API_ENDPOINT}/exchangeInfo`;
-  const response = await fetch(apiUrl);
-  const { symbols } = await response.json();
-
-  const tickerSelect = document.getElementById("ticker-select");
-
-  // ordenar alfabeticamente
-  symbols.sort((a, b) => a.symbol.localeCompare(b.symbol));
-
-  // agregar tickers al dropdown
-  symbols.forEach(symbol => {
-    const option = document.createElement("option");
-    option.value = symbol.symbol;
-    option.textContent = symbol.symbol;
-    tickerSelect.appendChild(option);
-  });
-
-  tickerSelect.addEventListener("change", () => {
-    const selectedValue = tickerSelect.value;
-    callback(selectedValue);
-  });
-  // valor default
-  const defaultValue = "BTCUSDT";
-  callback(defaultValue);
-}
-
-
-// inicializacion de grafico, 
 window.addEventListener("load", async () => {
   const chartManager = new ChartManager("myChart", "btc-value");
   populateTickerSelect(selectedValue => {
-    chartManager.createChart(selectedValue, "1d", 30);
+    chartManager.createChart(selectedValue, "1w", 52);
+  });
+
+  const intervalsArr = [
+    { btnId: "btn-1y", interval: intervals.interval1.interval, limit: intervals.interval1.limit },
+    { btnId: "btn-7d", interval: intervals.interval2.interval, limit: intervals.interval2.limit },
+    { btnId: "btn-30d", interval: intervals.interval3.interval, limit: intervals.interval3.limit }
+  ];
+
+  intervalsArr.forEach(({btnId, interval, limit}) => {
+    const intervalBtn = document.getElementById(btnId);
+    intervalBtn.addEventListener("click", () => {
+      populateTickerSelect(selectedValue => {
+        chartManager.createChart(selectedValue, interval, limit);
+      });
+    });
   });
 });
-
 
 const ticker_btcusdt = new TickerManager("btc-value");
 ticker_btcusdt.updateTicker("BTCUSDT");

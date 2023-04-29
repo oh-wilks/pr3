@@ -151,7 +151,8 @@ export class ChartManager {
   }
 }
 import { populateTickerSelect } from "./tickerDropDown.js";
-import { intervals } from "./dateInterval.js";
+import { intervalsArr } from "./dateInterval.js";
+console.log(intervalsArr)
 
 // inicializacion de grafico,
 
@@ -160,12 +161,6 @@ window.addEventListener("load", async () => {
   populateTickerSelect(selectedValue => {
     chartManager.createChart(selectedValue, "1w", 52);
   });
-
-  const intervalsArr = [
-    { btnId: "btn-1y", interval: intervals.interval1.interval, limit: intervals.interval1.limit },
-    { btnId: "btn-7d", interval: intervals.interval2.interval, limit: intervals.interval2.limit },
-    { btnId: "btn-30d", interval: intervals.interval3.interval, limit: intervals.interval3.limit }
-  ];
 
   intervalsArr.forEach(({btnId, interval, limit}) => {
     const intervalBtn = document.getElementById(btnId);

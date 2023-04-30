@@ -17,6 +17,12 @@ export const intervals = {
     interval: "1d",
     limit: 30,
   },
+  interval4: {
+    btnId: "btn-2y",
+    name: "2 anios",
+    interval: "1w",
+    limit: 104,
+  },
 };
 
 

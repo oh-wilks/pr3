@@ -6,7 +6,6 @@ let chart = null;
 
 class BinanceAPI {
   
-
   async getTickerPrice(symbol) {
     const apiUrl = `${API_ENDPOINT}/ticker/price?symbol=${symbol}`;
     const response = await fetch(apiUrl);
@@ -45,7 +44,6 @@ class BinanceAPI {
           price: parseFloat(close),
         })
       );
-      console.log(data);
       return prices;
     } catch (error) {
       console.error(error);
@@ -152,12 +150,11 @@ export class ChartManager {
 }
 import { populateTickerSelect } from "./tickerDropDown.js";
 import { intervalsArr } from "./dateInterval.js";
-console.log(intervalsArr)
 
 // inicializacion de grafico,
 
 window.addEventListener("load", async () => {
-  const chartManager = new ChartManager("myChart", "btc-value");
+  const chartManager = new ChartManager("myChart", "eth-value");
   populateTickerSelect(selectedValue => {
     chartManager.createChart(selectedValue, "1w", 52);
   });

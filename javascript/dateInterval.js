@@ -25,5 +25,3 @@ export const intervalsArr = Object.values(intervals).map((interval) => ({
     interval: interval.interval,
     limit: interval.limit,
   }));
-
-  console.log(intervalsArr);

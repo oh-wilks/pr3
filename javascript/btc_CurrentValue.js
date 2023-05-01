@@ -151,23 +151,23 @@ import { populateTickerSelect } from "./tickerDropDown.js";
 import { intervalsArr } from "./dateInterval.js";
 
 // inicializacion de grafico,
-
 window.addEventListener("load", async () => {
   const chartManager = new ChartManager("myChart", "eth-value");
-  populateTickerSelect((selectedValue) => {
+  let selectedValue = null;
+
+  populateTickerSelect(value => {
+    selectedValue = value;
     chartManager.createChart(selectedValue, "1w", 52);
   });
 
   intervalsArr.forEach(({ btnId, interval, limit }) => {
     const intervalBtn = document.getElementById(btnId);
     intervalBtn.addEventListener("click", () => {
-      chart.destroy();
-      populateTickerSelect((selectedValue) => {
-        chartManager.createChart(selectedValue, interval, limit);
-      });
+      chartManager.createChart(selectedValue, interval, limit);
     });
   });
 });
+
 
 const ticker_btcusdt = new TickerManager("btc-value");
 ticker_btcusdt.updateTicker("BTCUSDT");

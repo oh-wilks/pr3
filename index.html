@@ -62,20 +62,23 @@
         <p>Loading...</p>
       </div>
       <!-- agregar otro contendor mostrando la moneda de la grafica   -->
-      <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
-        <button id="btn-7d" type="button" class="btn btn-outline-secondary">7D</button>
-        <button id="btn-30d" type="button" class="btn btn-outline-secondary">1M</button>
-        <button id="btn-1y" type="button" class="btn btn-outline-secondary">1A</button>
-        <button id="btn-2y" type="button" class="btn btn-outline-secondary">2A</button>
-      </div>
-      <canvas id="myChart"></canvas>
-      <div class="dropdown">
-        <select class="form-select" id="ticker-select" loading="lazy"></select>
-      </div>
+      <section class="dashBoard">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+          <button id="btn-7d" type="button" class="btn btn-outline-secondary">7D</button>
+          <button id="btn-30d" type="button" class="btn btn-outline-secondary">1M</button>
+          <button id="btn-1y" type="button" class="btn btn-outline-secondary">1A</button>
+          <button id="btn-2y" type="button" class="btn btn-outline-secondary">2A</button>
+        </div>
+
+        <canvas id="myChart"></canvas>
+        <div class="dropdown">
+          <select class="form-select" id="ticker-select" loading="lazy"></select>
+        </div>
 
 
     </div>
   </section>
+
   <section class="container">
     <div class="row row-cols-2 row-cols-md-4 g-4">
       <div class="col">
@@ -125,6 +128,7 @@
         </div>
       </div>
     </div>
+  </section>
   </section>
 
   <button id="btnTemas" class="btn rounded-fill"><i id="dl-icon" class="bi bi-moon-fill"></i></button>

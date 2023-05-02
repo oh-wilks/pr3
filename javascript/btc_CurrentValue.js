@@ -51,6 +51,7 @@ class BinanceAPI {
       throw new Error(ERROR_KLINES);
     }
   }
+  
 }
 
 class TickerManager {
@@ -100,15 +101,22 @@ export class ChartManager {
     this.canvas.insertAdjacentHTML("afterend", '<div class="spinner"></div>');
     let prices = await this.api.getKlines(symbol, interval, limit);
     prices = prices.map((item) => item.price);
-
+  
     let date = await this.api.getKlines(symbol, interval, limit);
     date = date.map((item) => item.date);
-
+  
     date = date.map((unixTimestamp) => {
       const date = new Date(unixTimestamp);
       return date.toISOString().slice(0, 10);
     });
-
+  
+    let color = "#808080";
+    if (prices[0] < prices[prices.length - 1]) {
+      color = "#6cc070"; 
+    } else if (prices[0] > prices[prices.length - 1]) {
+      color = 	"	#ff6633"; 
+    }
+  
     if (chart) {
       chart.destroy();
     }
@@ -121,7 +129,7 @@ export class ChartManager {
             label: symbol,
             data: prices,
             fill: false,
-            borderColor: "#808080",
+            borderColor: color,
             tension: 0.1,
           },
         ],

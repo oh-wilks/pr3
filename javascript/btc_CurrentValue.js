@@ -116,7 +116,18 @@ export class ChartManager {
     } else if (prices[0] > prices[prices.length - 1]) {
       color = 	"	#ff6633"; 
     }
-  
+
+    const priceChange = (prices[prices.length - 1] - prices[0]).toLocaleString(undefined, {maximumFractionDigits: 2, minimumFractionDigits: 2});
+    localStorage.setItem('priceChange', priceChange);
+    const percentChange = ((prices[prices.length - 1] - prices[0]) / prices[0] * 100).toFixed(2) + '%';
+    localStorage.setItem('percentChange', percentChange);
+    // Retrieve the values from local storage
+    localStorage.getItem('priceChange');
+    localStorage.getItem('percentChange');
+
+    // Display the values in the HTML element
+    document.getElementById('priceChange').textContent = ` ${priceChange} | ${percentChange}`;
+
     if (chart) {
       chart.destroy();
     }

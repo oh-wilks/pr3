@@ -4,11 +4,25 @@
   color: blue;
 }
 
-#priceChangeCard {
+.priceChangeContainer {
   display: flex;
+  margin-inline: inherit;
 }
 
+#priceChange {
+  font-size: large;
+  margin-left: 10px;
+}
 
+#arrowDown {
+  fill: #ff6633;
+  display: none;
+}
+
+#arrowUp {
+  fill: #6cc070;
+  display: none;
+}
 
 .dia {
   border-radius: 10px;

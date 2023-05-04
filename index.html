@@ -63,23 +63,28 @@
       </div>
       <!-- agregar otro contendor mostrando la moneda de la grafica   -->
       <section class="dashBoard">
-        
+        <div class="priceChangeContainer">
+          <p>
+          <svg class="priceChangeColor" id="arrowUp" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"></path>
+          </svg>
+          </p>
+          <p>
+          <svg class="priceChangeColor" id="arrowDown" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-down-arrow" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 11.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-1 0v2.6l-3.613-4.417a.5.5 0 0 0-.74-.037L7.06 8.233 3.404 3.206a.5.5 0 0 0-.808.588l4 5.5a.5.5 0 0 0 .758.06l2.609-2.61L13.445 11H10.5a.5.5 0 0 0-.5.5Z"/>
+          </svg> 
+          </p>
+          <p class="priceChangeColor" id="priceChange"></p>
+        </div>
+  
+
         <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
           <button id="btn-7d" type="button" class="btn btn-outline-secondary">7D</button>
           <button id="btn-30d" type="button" class="btn btn-outline-secondary">1M</button>
           <button id="btn-1y" type="button" class="btn btn-outline-secondary">1A</button>
           <button id="btn-2y" type="button" class="btn btn-outline-secondary">2A</button>
         </div>
-        <div>
-          <div class="card">
-            <div id="priceChangeCard" class="card-body">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up-arrow" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"/>
-              </svg>  
-              <p id="priceChange" class="card-text"></p>          
-            </div>
-          </div>
-        </div>
+        
         <canvas id="myChart"></canvas>
         <div class="dropdown">
           <select class="form-select" id="ticker-select" loading="lazy"></select>

@@ -110,11 +110,27 @@ export class ChartManager {
       return date.toISOString().slice(0, 10);
     });
   
+    // priceChange p, para cambiar de color
+    const pPriceChange = document.getElementById('priceChange');
+
+    // para mostrar icono correspondiente, caida o subida
+    const arrowDown = document.getElementById('arrowDown');
+    const arrowUp = document.getElementById('arrowUp')
+
+  
     let color = "#808080";
     if (prices[0] < prices[prices.length - 1]) {
       color = "#6cc070"; 
+      pPriceChange.style.color = color;
+      arrowUp.style.display = 'inline-block'; 
+      arrowDown.style.display = 'none';
+
     } else if (prices[0] > prices[prices.length - 1]) {
       color = 	"	#ff6633"; 
+      pPriceChange.style.color = color;
+      arrowDown.style.display = 'inline-block';
+      arrowUp.style.display = 'none'; 
+
     }
 
     const priceChange = (prices[prices.length - 1] - prices[0]).toLocaleString(undefined, {maximumFractionDigits: 2, minimumFractionDigits: 2});
@@ -126,7 +142,7 @@ export class ChartManager {
     localStorage.getItem('percentChange');
 
     // Display the values in the HTML element
-    document.getElementById('priceChange').textContent = ` ${priceChange} | ${percentChange}`;
+    document.getElementById('priceChange').textContent = `${priceChange} | ${percentChange}`;
 
     if (chart) {
       chart.destroy();

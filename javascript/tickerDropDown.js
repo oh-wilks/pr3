@@ -38,4 +38,3 @@ export async function populateTickerSelect(callback) {
     console.error("Error", error);
   }
 }
-

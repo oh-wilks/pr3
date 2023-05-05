@@ -153,7 +153,7 @@ export class ChartManager {
         labels: date,
         datasets: [
           {
-            label: symbol,
+            //label: '',
             data: prices,
             fill: false,
             borderColor: color,
@@ -162,9 +162,16 @@ export class ChartManager {
         ],
       },
       options: {
+        plugins:{
+          legend: {
+           display: false
+          }
+         },
+        
         scales: {
           x: {
             grid: {
+              display: false,
               color: "#ede8e8",
             },
           },

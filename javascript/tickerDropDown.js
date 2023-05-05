@@ -26,12 +26,16 @@ export async function populateTickerSelect(callback) {
     });
 
     // valor default primer carga, despues se guarda en local storage
-    let defaultValue = localStorage.getItem("ticker-select-default-value") || symbols[0].symbol;
+    let defaultValue = localStorage.getItem("selectedTicker") || symbols[0].symbol;
+    document.getElementById('selectedTicker').textContent = `${defaultValue}` || symbols[0].symbol;
+
+    // mostrar valor en resumen
     callback(defaultValue);
 
     tickerSelect.addEventListener("change", () => {
       const selectedValue = tickerSelect.value;
-      localStorage.setItem("ticker-select-default-value", selectedValue);
+      localStorage.setItem("selectedTicker", selectedValue);
+      document.getElementById('selectedTicker').textContent = `${selectedValue}`;
       callback(selectedValue);
     });
   } catch (error) {
